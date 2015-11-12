@@ -38,6 +38,7 @@ class RPCClient
             var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
             if(ea.BasicProperties.CorrelationId == corrId)
             {
+                channel.BasicCancel(consumer.ConsumerTag);
                 return Encoding.UTF8.GetString(ea.Body);
             }
         }
